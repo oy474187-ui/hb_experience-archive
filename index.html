@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Experience Archive</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<style>
+@import url('https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans/packages/wanted-sans/fonts/webfonts/static/complete/WantedSans.min.css');
+:root{
+  --bg:#20201c; --sidebar:#48483f; --surface:#2b2b26; --surface2:#34342e;
+  --surface3:#3d3d36; --line:rgba(255,255,255,.075); --line2:rgba(255,255,255,.14);
+  --text:#f4f3ef; --sub:rgba(244,243,239,.74); --muted:rgba(244,243,239,.43);
+  --blue:#79aef7; --max:1460px; --radius:16px;
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;background:#181816;color:var(--text);font-family:'Wanted Sans',sans-serif;word-break:keep-all;-webkit-font-smoothing:antialiased}
+button{font:inherit} a{color:inherit;text-decoration:none}
+.app{min-height:100vh;display:grid;grid-template-columns:238px minmax(0,1fr);background:var(--bg)}
+.sidebar{position:sticky;top:0;height:100vh;padding:18px 14px 24px;border-right:1px solid rgba(0,0,0,.42);background:linear-gradient(180deg,#4b4b42 0%,#42423a 100%);box-shadow:inset -1px 0 rgba(255,255,255,.035)}
+.window-controls{display:flex;gap:8px;align-items:center;padding:2px 7px 16px}.traffic{width:11px;height:11px;border-radius:50%;display:block}.traffic.red{background:#ff5f57}.traffic.yellow{background:#febc2e}.traffic.green{background:#28c840}.brand{display:flex;align-items:center;gap:9px;font-size:14px;font-weight:650;letter-spacing:-.01em;margin:0 6px 24px;color:#fff}.brand .folder-mark{width:18px;height:14px;border-radius:3px;background:linear-gradient(#6aa8d7,#4a8dbd);position:relative;box-shadow:inset 0 1px rgba(255,255,255,.26)}.brand .folder-mark:before{content:'';position:absolute;left:2px;top:-4px;width:8px;height:5px;border-radius:2px 2px 0 0;background:#74b0da}.brand small{display:none}
+.nav-group{margin:0 0 22px}.nav-label{padding:0 10px 7px;color:rgba(255,255,255,.52);font-size:11px;font-weight:650}.nav{display:grid;gap:2px}.muted-group{margin-top:26px}.location-row{display:flex;align-items:center;gap:8px;padding:7px 10px;color:rgba(255,255,255,.48);font-size:11px}.location-dot{width:8px;height:8px;border-radius:50%;background:#7d7d72;box-shadow:inset 0 1px rgba(255,255,255,.18)}.nav button{width:100%;border:0;background:transparent;color:rgba(255,255,255,.79);text-align:left;padding:8px 10px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:560;display:grid;grid-template-columns:18px 1fr auto;gap:7px;align-items:center}.nav button:hover{background:rgba(255,255,255,.08);color:#fff}.nav button.active{background:#686860;color:#fff;box-shadow:inset 0 1px rgba(255,255,255,.05)}.nav .n{font-size:9px;color:rgba(255,255,255,.28);font-variant-numeric:tabular-nums}.nav-icon{width:15px;height:15px;display:inline-grid;place-items:center;color:rgba(255,255,255,.74)}.nav-icon svg{width:15px;height:15px;display:block}
+.side-foot{position:absolute;left:14px;right:14px;bottom:16px;border-top:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.38);font-size:10px;line-height:1.5;padding:12px 9px 0}
+.main{width:min(calc(100% - 64px),var(--max));margin:0 auto;padding:22px 0 72px}
+.topbar{height:42px;display:flex;justify-content:space-between;align-items:center;margin-bottom:46px;padding:0 2px;color:var(--muted);font-size:11px;border-bottom:1px solid var(--line)}.dot{width:7px;height:7px;border-radius:50%;background:#30d158;display:inline-block;margin-right:8px;box-shadow:0 0 14px rgba(48,209,88,.45)}
+.hero{max-width:700px;margin-bottom:38px}.hero h1{font-size:clamp(28px,3vw,38px);line-height:1.18;letter-spacing:-.04em;margin:0;font-weight:650}.hero p{display:none}
+.rule{height:1px;background:var(--line);margin-bottom:24px}.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}.section-head strong{font-size:14px}.section-head span{color:var(--muted);font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.card{position:relative;min-height:196px;padding:21px;border:1px solid rgba(0,0,0,.3);border-radius:12px;background:#2b2b27;cursor:pointer;transition:.18s ease;overflow:hidden;display:flex;flex-direction:column;box-shadow:inset 0 1px rgba(255,255,255,.035)}.card:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.12);background:#30302b}.card.has-image{min-height:330px}.thumb{height:155px;border-radius:8px;background:#1f1f1c center/cover no-repeat;margin:-7px -7px 20px;border:1px solid rgba(0,0,0,.34)}
+.meta{font-size:11px;color:var(--muted);font-weight:650;letter-spacing:.02em;margin-bottom:14px}.card h2{font-size:22px;line-height:1.24;letter-spacing:-.035em;margin:0 0 12px;font-weight:680}.card p{font-size:14px;line-height:1.62;color:var(--sub);margin:0;max-width:95%}.chev{margin-top:auto;padding-top:24px;color:var(--muted);font-size:18px}
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.48);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;visibility:hidden;transition:.22s;z-index:20}.scrim.open{opacity:1;visibility:visible}
+.detail{position:fixed;z-index:30;right:0;top:0;height:100dvh;width:min(760px,62vw);background:rgba(47,47,42,.97);border-left:1px solid var(--line2);box-shadow:-30px 0 90px rgba(0,0,0,.42);backdrop-filter:blur(32px) saturate(135%);-webkit-backdrop-filter:blur(32px) saturate(135%);transform:translateX(102%);transition:transform .32s cubic-bezier(.2,.8,.2,1);overflow:auto}.detail.open{transform:translateX(0)}
+.detail-inner{padding:30px 44px 54px}.detail-head{position:sticky;top:0;z-index:2;margin:-30px -44px 0;padding:22px 44px 20px;background:rgba(47,47,42,.88);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:24px}.kicker{font-size:11px;color:var(--muted);font-weight:650;letter-spacing:.06em;margin-bottom:9px}.detail h3{font-size:32px;line-height:1.14;letter-spacing:-.04em;margin:0}.close{width:34px;height:34px;border-radius:50%;border:0;background:rgba(255,255,255,.09);color:var(--text);font-size:22px;line-height:1;cursor:pointer;flex:0 0 auto}.close:hover{background:rgba(255,255,255,.15)}
+.case{padding-top:8px}.section{padding:32px 0;border-top:1px solid var(--line)}.section:first-child{border-top:0}.label{font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--muted);margin-bottom:16px}.lead{font-size:21px;line-height:1.58;letter-spacing:-.02em;margin:0;color:var(--text)}.copy{font-size:17px;line-height:1.72;margin:0;color:var(--sub)}
+.analysis{display:grid;grid-template-columns:.9fr 1.1fr;gap:38px}.subhead{font-size:12px;color:var(--muted);margin-bottom:12px}.steps{display:grid;gap:16px}.step{display:grid;grid-template-columns:28px 1fr;gap:10px}.num{color:var(--muted);font-size:11px;padding-top:3px}.step strong{font-size:16px;display:block;margin-bottom:4px}.step span{font-size:15px;line-height:1.55;color:var(--sub)}
+.output{display:grid;grid-template-columns:.85fr 1.15fr;gap:28px;align-items:start}.output.no-image{grid-template-columns:1fr}.output img{width:100%;max-width:100%;height:auto;max-height:none;object-fit:contain;background:#0d0e11;border:1px solid var(--line);border-radius:14px;display:block;margin:0 auto}.outcome{padding:22px 24px;border-radius:12px;background:#383832;border:1px solid var(--line)}.outcome p{font-size:19px;line-height:1.65;margin:0;color:var(--text)}
+@media(max-width:1100px){.app{grid-template-columns:210px 1fr}.main{width:calc(100% - 44px)}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.detail{width:68vw}.analysis,.output{grid-template-columns:1fr}}
+@media(max-width:760px){.app{display:block}.sidebar{position:sticky;z-index:10;top:0;height:auto;padding:12px 16px;display:flex;align-items:center;gap:14px;overflow:auto}.brand{margin:0;white-space:nowrap}.brand small,.side-foot{display:none}.nav{display:flex;gap:4px}.nav button{white-space:nowrap;padding:9px 11px}.nav .n{display:none}.main{width:calc(100% - 32px);padding:28px 0 60px}.topbar{margin-bottom:48px}.hero{margin-bottom:38px}.hero h1{font-size:30px}.grid{grid-template-columns:1fr}.card{min-height:190px}.detail{width:100vw;border-left:0}.detail-inner{padding:22px 22px 46px}.detail-head{margin:-22px -22px 0;padding:16px 22px}.detail h3{font-size:30px}.lead{font-size:19px}.copy{font-size:16px}.section{padding:26px 0}.outcome p{font-size:18px}}
+
+.output.has-gallery{grid-template-columns:.8fr 1.2fr!important;}
+.output-gallery{display:grid;gap:10px;min-width:0}.output-gallery[data-count="1"]{grid-template-columns:1fr}.output-gallery[data-count="2"],.output-gallery[data-count="3"],.output-gallery[data-count="4"]{grid-template-columns:repeat(2,minmax(0,1fr))}.output-gallery[data-count="3"] .output-gallery-item:first-child{grid-column:1/-1}.output-gallery-item{min-width:0;background:#242420;border:1px solid var(--line);border-radius:12px;padding:10px;overflow:hidden;display:flex;align-items:center;justify-content:center}.output-gallery-resize-box{width:var(--image-scale,100%);max-width:100%;min-width:30%;margin:auto}.output-gallery .output-gallery-resize-box img{width:100%!important;height:auto!important;min-height:0!important;max-height:none!important;object-fit:contain;border:0!important;border-radius:8px;background:#111214;display:block}@media(max-width:1100px){.output.has-gallery{grid-template-columns:1fr!important}}@media(max-width:760px){.output-gallery,.output-gallery[data-count="1"],.output-gallery[data-count="2"],.output-gallery[data-count="3"],.output-gallery[data-count="4"]{grid-template-columns:1fr!important}.output-gallery[data-count="3"] .output-gallery-item:first-child{grid-column:auto}.output-gallery-resize-box{min-width:35%}}
+
+/* V17: main-card thumbnail fill */
+.thumb{position:relative!important;overflow:hidden!important;padding:0!important;background:#20242A!important;background-image:none!important;}
+.thumb-image{display:block!important;width:100%!important;height:100%!important;min-width:100%!important;min-height:100%!important;object-fit:cover!important;object-position:center!important;border:0!important;border-radius:inherit!important;}
+</style>
+
+<style id="edit-v9-view-match">
+/* EDIT v9 ↔ VIEW mode parity */
+.meta,.kicker{display:flex!important;align-items:center!important;gap:9px!important}
+.shape-marker{
+  display:inline-block!important;flex:0 0 auto!important;
+  width:9px!important;height:9px!important;
+  background:#b2b2a8!important;opacity:1!important;box-sizing:border-box!important;
+}
+.marker-experience{border-radius:50%!important}
+.marker-system{border-radius:1px!important;transform:rotate(45deg)!important}
+.marker-automation{width:13px!important;height:4px!important;border-radius:99px!important}
+.marker-tools{background:transparent!important;border:2px solid #b2b2a8!important;border-radius:50%!important}
+.marker-workflow{background:transparent!important;border:1.5px solid #b2b2a8!important;border-radius:2px!important}
+
+.card h2{
+  font-size:clamp(19px,1.45vw,24px)!important;
+  line-height:1.18!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  margin-bottom:10px!important;
+}
+.card p{
+  font-size:13px!important;
+  line-height:1.6!important;
+  display:-webkit-box!important;
+  -webkit-line-clamp:2!important;
+  -webkit-box-orient:vertical!important;
+  overflow:hidden!important;
+  max-width:92%!important;
+}
+.meta{
+  font-size:11px!important;
+  color:rgba(244,243,239,.50)!important;
+  letter-spacing:.025em!important;
+}
+
+/* Detail title: one line on desktop */
+.detail h3{
+  font-size:clamp(25px,2.15vw,34px)!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+}
+.kicker{color:rgba(244,243,239,.55)!important}
+
+/* Analysis proportions same as EDIT v9 */
+.analysis{
+  display:grid!important;
+  grid-template-columns:minmax(0,1.45fr) minmax(280px,.82fr)!important;
+  gap:22px!important;
+  align-items:start!important;
+}
+.analysis-main{
+  min-width:0!important;
+  padding-right:26px!important;
+}
+.analysis-actions{
+  min-width:0!important;
+  padding-left:20px!important;
+}
+.action-line{
+  display:grid!important;
+  grid-template-columns:18px minmax(0,1fr)!important;
+  align-items:start!important;
+  gap:12px!important;
+  padding:17px 0!important;
+}
+.action-line:first-child{padding-top:0!important}
+.action-line + .action-line{border-top:1px solid rgba(255,255,255,.08)!important}
+.action-line p{
+  margin:0!important;
+  color:#e2e2df!important;
+  font-size:14px!important;
+  line-height:1.65!important;
+}
+.action-mark{
+  display:block!important;
+  width:8px!important;height:8px!important;
+  margin-top:7px!important;
+  border-radius:2px!important;
+  background:#9d9d93!important;
+  box-shadow:inset 0 1px rgba(255,255,255,.14)!important;
+}
+.output{grid-template-columns:.9fr 1.1fr!important}
+.output.no-image{grid-template-columns:1fr!important}
+.output img{max-height:none!important}
+
+@media(max-width:980px){
+  .analysis{grid-template-columns:1fr!important}
+  .analysis-main{padding-right:0!important}
+  .analysis-actions{padding-left:0!important}
+  .detail h3{white-space:normal!important}
+}
+</style>
+
+
+<style id="balance-format-view-v11">
+.analysis{
+  grid-template-columns:minmax(0,48%) minmax(0,52%)!important;
+  gap:30px!important;
+}
+.analysis-main{padding-right:8px!important}
+.analysis-actions{padding-left:4px!important}
+.action-line{
+  grid-template-columns:12px minmax(0,1fr)!important;
+  gap:11px!important;padding:15px 0!important;
+}
+.action-line p{font-size:13px!important;line-height:1.62!important}
+.action-mark{width:6px!important;height:6px!important;border-radius:2px!important;margin-top:7px!important}
+.primary-copy,.outcome .primary-copy{
+  font-size:16px!important;line-height:1.72!important;
+  letter-spacing:-.012em!important;color:#ECEBE7!important;
+}
+.outcome{
+  border:1px solid rgba(255,255,255,.105)!important;
+  background:rgba(255,255,255,.045)!important;
+  border-radius:13px!important;padding:20px 22px!important;
+}
+.text-accent{color:#C9D7A7!important;font-weight:650!important}
+.primary-copy strong,.copy strong{font-weight:750!important;color:#FFF!important}
+.output.no-image{display:block!important;grid-template-columns:none!important}
+.output.no-image img{display:none!important}
+@media(max-width:760px){.analysis{grid-template-columns:1fr!important;gap:18px!important}}
+</style>
+
+
+<style id="v102-output-zoom-section-balance">
+/* ===== V102: stronger section rhythm + larger OUTPUT visual ===== */
+.detail{
+  width:min(900px,68vw)!important;
+}
+.detail-inner{
+  padding-bottom:64px!important;
+}
+.case{
+  padding-top:10px!important;
+}
+.section{
+  position:relative!important;
+  padding:38px 0 40px!important;
+  border-top:1px solid rgba(255,255,255,.14)!important;
+}
+.section:first-child{
+  border-top:0!important;
+  padding-top:34px!important;
+}
+.section + .section{
+  margin-top:4px!important;
+}
+.label{
+  display:flex!important;
+  align-items:center!important;
+  gap:9px!important;
+  margin-bottom:20px!important;
+  color:rgba(244,243,239,.58)!important;
+  font-size:11px!important;
+  font-weight:750!important;
+  letter-spacing:.11em!important;
+}
+.label::before{
+  content:""!important;
+  width:16px!important;
+  height:2px!important;
+  border-radius:999px!important;
+  background:rgba(201,215,167,.72)!important;
+  flex:0 0 auto!important;
+}
+
+/* OUTPUT: let the actual work dominate the section */
+.output.has-gallery{
+  grid-template-columns:minmax(190px,.64fr) minmax(0,1.36fr)!important;
+  gap:22px!important;
+  align-items:start!important;
+}
+.output-gallery{
+  gap:12px!important;
+}
+.output-gallery-item{
+  position:relative!important;
+  padding:6px!important;
+  border-radius:13px!important;
+  background:#22231f!important;
+  border:1px solid rgba(255,255,255,.10)!important;
+  cursor:zoom-in!important;
+  transition:border-color .16s ease,transform .16s ease,background .16s ease!important;
+}
+.output-gallery-item:hover{
+  border-color:rgba(255,255,255,.24)!important;
+  background:#272822!important;
+  transform:translateY(-1px)!important;
+}
+.output-gallery-item::after{
+  content:"↗"!important;
+  position:absolute!important;
+  right:12px!important;
+  top:12px!important;
+  width:28px!important;
+  height:28px!important;
+  display:grid!important;
+  place-items:center!important;
+  border-radius:999px!important;
+  background:rgba(18,18,16,.74)!important;
+  border:1px solid rgba(255,255,255,.12)!important;
+  color:rgba(255,255,255,.84)!important;
+  font-size:13px!important;
+  opacity:0!important;
+  transform:translateY(2px)!important;
+  transition:.16s ease!important;
+  pointer-events:none!important;
+  backdrop-filter:blur(8px)!important;
+}
+.output-gallery-item:hover::after{
+  opacity:1!important;
+  transform:translateY(0)!important;
+}
+.output-gallery-resize-box{
+  max-width:100%!important;
+}
+.output-gallery .output-gallery-resize-box img{
+  cursor:zoom-in!important;
+  border-radius:9px!important;
+}
+
+/* Single image should read as the primary artifact */
+.output-gallery[data-count="1"] .output-gallery-item{
+  min-height:260px!important;
+}
+.output-gallery[data-count="1"] .output-gallery-resize-box{
+  width:max(var(--image-scale,100%),72%)!important;
+  min-width:72%!important;
+}
+.output-gallery[data-count="1"] img{
+  width:100%!important;
+}
+
+/* Keep text readable but slightly less dominant beside the artifact */
+.output.has-gallery > div:first-child .copy{
+  font-size:15px!important;
+  line-height:1.72!important;
+}
+
+/* Outcome block gets a clearer end-state treatment */
+.section:last-child{
+  padding-bottom:18px!important;
+}
+.outcome{
+  border-color:rgba(255,255,255,.14)!important;
+  background:rgba(255,255,255,.055)!important;
+}
+
+/* Image lightbox */
+.image-lightbox{
+  position:fixed!important;
+  inset:0!important;
+  z-index:9999!important;
+  display:grid!important;
+  place-items:center!important;
+  padding:36px!important;
+  background:rgba(8,9,8,.86)!important;
+  backdrop-filter:blur(16px)!important;
+  -webkit-backdrop-filter:blur(16px)!important;
+  opacity:0!important;
+  visibility:hidden!important;
+  transition:opacity .18s ease,visibility .18s ease!important;
+}
+.image-lightbox.open{
+  opacity:1!important;
+  visibility:visible!important;
+}
+.image-lightbox img{
+  display:block!important;
+  max-width:min(92vw,1500px)!important;
+  max-height:88vh!important;
+  width:auto!important;
+  height:auto!important;
+  object-fit:contain!important;
+  border-radius:12px!important;
+  box-shadow:0 28px 90px rgba(0,0,0,.48)!important;
+  background:#111214!important;
+}
+.image-lightbox-close{
+  position:fixed!important;
+  top:22px!important;
+  right:24px!important;
+  width:42px!important;
+  height:42px!important;
+  border-radius:50%!important;
+  border:1px solid rgba(255,255,255,.16)!important;
+  background:rgba(255,255,255,.08)!important;
+  color:#fff!important;
+  font-size:25px!important;
+  line-height:1!important;
+  cursor:pointer!important;
+}
+.image-lightbox-hint{
+  position:fixed!important;
+  left:50%!important;
+  bottom:22px!important;
+  transform:translateX(-50%)!important;
+  padding:7px 11px!important;
+  border-radius:999px!important;
+  background:rgba(20,20,18,.72)!important;
+  color:rgba(255,255,255,.62)!important;
+  font-size:11px!important;
+  border:1px solid rgba(255,255,255,.10)!important;
+}
+@media(max-width:1100px){
+  .detail{width:min(840px,76vw)!important}
+  .output.has-gallery{grid-template-columns:1fr!important}
+  .output.has-gallery > div:first-child .copy{font-size:16px!important}
+}
+@media(max-width:760px){
+  .detail{width:100vw!important}
+  .section{padding:30px 0 32px!important}
+  .label{margin-bottom:16px!important}
+  .output-gallery[data-count="1"] .output-gallery-resize-box{
+    width:100%!important;
+    min-width:100%!important;
+  }
+  .image-lightbox{padding:18px!important}
+  .image-lightbox img{max-width:96vw!important;max-height:84vh!important}
+}
+</style>
+
+
+<style id="v103-overview-analysis-merge">
+/* ===== V103: OVERVIEW + ANALYSIS in one compact section ===== */
+.overview-analysis-section{
+  padding-top:34px!important;
+  padding-bottom:36px!important;
+}
+.overview-analysis-grid{
+  display:grid!important;
+  grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)!important;
+  gap:42px!important;
+  align-items:start!important;
+}
+.overview-column,
+.analysis-column{
+  min-width:0!important;
+}
+.analysis-column{
+  padding-left:34px!important;
+  border-left:1px solid rgba(255,255,255,.12)!important;
+}
+.overview-analysis-grid .label{
+  margin-bottom:18px!important;
+}
+.overview-analysis-grid .analysis-actions{
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:0!important;
+}
+.overview-analysis-grid .action-line{
+  min-height:0!important;
+  padding:10px 0!important;
+  border-top:1px solid rgba(255,255,255,.08)!important;
+}
+.overview-analysis-grid .action-line:first-child{
+  border-top:0!important;
+  padding-top:0!important;
+}
+.overview-analysis-grid .action-line p{
+  font-size:13px!important;
+  line-height:1.55!important;
+}
+@media(max-width:760px){
+  .overview-analysis-grid{grid-template-columns:1fr!important;gap:28px!important}
+  .analysis-column{padding-left:0!important;padding-top:26px!important;border-left:0!important;border-top:1px solid rgba(255,255,255,.10)!important}
+}
+</style>
+
+
+<style id="v104-titlecard-highlights">
+.detail-head{
+  position:sticky!important;
+  top:0!important;
+  margin:-30px -44px 0!important;
+  padding:24px 30px 22px!important;
+  background:linear-gradient(180deg,rgba(35,35,31,.985),rgba(42,42,36,.965))!important;
+  border-bottom:1px solid rgba(255,255,255,.13)!important;
+  box-shadow:0 12px 28px rgba(0,0,0,.18)!important;
+  backdrop-filter:blur(22px)!important;
+  -webkit-backdrop-filter:blur(22px)!important;
+}
+.detail-head:before{
+  content:""!important;
+  position:absolute!important;
+  left:30px!important;
+  right:30px!important;
+  bottom:-1px!important;
+  height:1px!important;
+  background:linear-gradient(90deg,#D8E79E 0 72px,rgba(255,255,255,.08) 72px)!important;
+}
+.detail-head > div:first-child{min-width:0!important;padding-right:18px!important}
+.detail-head .kicker{margin-bottom:11px!important}
+.detail-head h3{
+  font-size:clamp(29px,2.35vw,39px)!important;
+  line-height:1.12!important;
+  letter-spacing:-.04em!important;
+  font-weight:730!important;
+  color:#fff!important;
+  white-space:normal!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+  max-width:92%!important;
+}
+.primary-copy strong,.copy strong,.action-line p strong,.outcome strong{
+  font-weight:780!important;color:#fff!important;
+}
+.text-accent{
+  color:#D8E79E!important;
+  font-weight:720!important;
+}
+@media(max-width:760px){
+  .detail-head{margin:-22px -22px 0!important;padding:20px 20px 18px!important}
+  .detail-head:before{left:20px!important;right:20px!important}
+  .detail-head h3{font-size:29px!important;max-width:88%!important}
+}
+</style>
+
+
+<style id="v105-title-oneline">
+.detail-head h3{
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  max-width:calc(100% - 56px)!important;
+  font-size:clamp(26px,1.95vw,34px)!important;
+}
+@media(max-width:760px){
+  .detail-head h3{
+    white-space:nowrap!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+    max-width:calc(100% - 52px)!important;
+    font-size:26px!important;
+  }
+}
+</style>
+
+
+<style id="v106-title-fit-oneline">
+.detail-head{
+  align-items:flex-start!important;
+}
+.detail-head > div:first-child{
+  min-width:0!important;
+  flex:1 1 auto!important;
+  padding-right:14px!important;
+}
+.detail-head h3{
+  white-space:nowrap!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+  max-width:none!important;
+  width:auto!important;
+  font-size:var(--detail-title-size,32px)!important;
+  letter-spacing:-.045em!important;
+}
+.detail-head .close{
+  flex:0 0 34px!important;
+}
+@media(max-width:760px){
+  .detail-head h3{
+    font-size:var(--detail-title-size-mobile,24px)!important;
+    white-space:nowrap!important;
+    overflow:visible!important;
+    text-overflow:clip!important;
+    max-width:none!important;
+  }
+}
+</style>
+
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="window-controls" aria-hidden="true"><span class="traffic red"></span><span class="traffic yellow"></span><span class="traffic green"></span></div>
+  <div class="brand"><span class="folder-mark"></span><span>Archive</span><small>Selected works · 2026</small></div>
+  <div class="nav-group"><div class="nav-label">Favorites</div><nav class="nav" id="nav"></nav></div>
+  <div class="nav-group muted-group"><div class="nav-label">Location</div><div class="location-row"><span class="location-dot"></span><span>Portfolio Archive</span></div></div>
+  <div class="side-foot">Experience Archive</div>
+</aside>
+<main class="main">
+  <div class="topbar"><span><i class="dot"></i>Archive</span><span>HANBYEOL YANG</span></div>
+  <section class="hero"><h1>발견한 문제들을 이렇게 풀었어요.</h1></section>
+  <div class="rule"></div>
+  <div class="section-head"><strong id="sectionTitle">All Works</strong><span><b id="count">0</b> works</span></div>
+  <section class="grid" id="grid"></section>
+</main>
+</div>
+<div class="scrim" id="scrim"></div>
+<aside class="detail" id="detail" aria-hidden="true"><div id="detailContent"></div></aside>
+
+<div class="image-lightbox" id="imageLightbox" aria-hidden="true">
+  <button class="image-lightbox-close" id="imageLightboxClose" type="button" aria-label="이미지 확대 닫기">×</button>
+  <img id="imageLightboxImage" src="" alt="">
+  <div class="image-lightbox-hint">이미지 바깥 영역 또는 ESC를 눌러 닫기</div>
+</div>
+
+<script>
+const works=[{"title":"챗봇 UX 개선","category":"design","categoryLabel":"경험 개선 · UX · 정보구조","desc":"복잡한 대화 흐름을 재설계해 사용자가 필요한 답변까지 더 빠르게 도달하도록 개선했습니다.","tags":["UX","IA"],"context":"판매자 고객지원 챗봇의 대화 시나리오와 정보 탐색 흐름을 분석하고, 사용자가 필요한 답변까지 더 빠르게 도달할 수 있도록 질문·답변 구조를 재설계했습니다.","asIs":"질문 유형과 선택지가 여러 단계로 이어져 원하는 답변까지 탐색이 길어졌고, 사용자가 현재 위치와 다음 행동을 파악하기 어려웠습니다.","toBe":"사용자의 질문 목적을 기준으로 대화 시나리오를 다시 구성하고, 불필요한 분기를 줄여 핵심 답변까지의 경로를 단순화했습니다.","process":[{"title":"기존 흐름 분석","text":"질문 유형과 대화 분기를 분석해 반복되거나 불필요한 탐색 단계를 확인"},{"title":"대화 구조 재설계","text":"사용자 목적을 기준으로 질문·답변 시나리오와 분기 구조를 재구성"},{"title":"탐색 단계 단순화","text":"핵심 답변까지의 경로와 정보 우선순위를 정리해 탐색 단계를 축소"}],"thumb":"","detailImage":"images/image-01-186d05a7205f.png","group":"experience","core":"UX / Information Architecture","number":1,"toBeHighlights":["불필요한 분기를 줄여"],"descHighlights":[],"imageSize":85,"detailImages":["images/image-01-186d05a7205f.png"],"imageSizes":[85],"contextBoldHighlights":["대화 시나리오와 정보 탐색 흐름","질문·답변 구조"],"contextColorHighlights":["더 빠르게 도달"],"toBeColorHighlights":["핵심 답변까지의 경로를 단순화"]},{"title":"엑셀 대시보드 자동화","category":"automation tools","categoryLabel":"자동화 · 데이터 시각화","desc":"여러 채널의 데이터를 Excel에서 자동 집계·시각화해 반복 리포팅 업무를 줄였습니다.","tags":["DATA","AUTOMATION"],"context":"여러 커뮤니케이션 채널의 데이터를 반복해서 확인하고 가공하는 업무를 줄이기 위해, 별도 BI 도구 없이 Excel 안에서 집계부터 시각화까지 이어지는 대시보드를 구축했습니다.","asIs":"채널별 데이터를 여러 파일과 화면에서 확인한 뒤 다시 정리해야 해, 정기 리포팅마다 같은 계산과 비교 작업이 반복됐습니다.","toBe":"채널별 데이터를 하나의 구조로 정리하고 계산식을 연결해 주요 KPI와 채널 성과가 자동으로 갱신되는 대시보드를 만들었습니다.","process":[{"title":"데이터 구조 정리","text":"채널마다 달랐던 지표와 집계 기준을 하나의 데이터 구조로 통합"},{"title":"자동 집계 구현","text":"반복 계산과 비교 값이 자동으로 갱신되도록 Excel 수식과 참조 구조를 설계"},{"title":"대시보드 구성","text":"핵심 KPI와 비교 지표를 한 화면에서 빠르게 확인할 수 있도록 시각화"}],"thumb":"","detailImage":"images/image-02-027f540f2790.png","group":"automation","core":"Data Visualization / Automation","number":2,"toBeHighlights":["하나의 구조로 정리하고 계산식을 연결"],"descHighlights":[],"detailImages":["images/image-02-027f540f2790.png"],"imageSizes":[100],"contextBoldHighlights":["Excel 안에서 집계부터 시각화까지"],"contextColorHighlights":["반복해서 확인하고 가공하는 업무를 줄이기"],"toBeColorHighlights":["자동으로 갱신되는 대시보드"]},{"title":"파트너센터 메인 리디자인","category":"design system","categoryLabel":"경험 개선 · UI/UX","desc":"콘텐츠 우선순위와 탐색 구조를 재정비해 파트너센터 메인에서 필요한 정보를 더 빠르게 찾도록 개선했습니다.","tags":["UI/UX","VISUAL"],"context":"오래된 UI와 누적된 콘텐츠 구조를 현재 판매자 사용 환경에 맞게 다시 설계하고, 메인 화면에서 중요한 정보와 다음 행동이 먼저 보이도록 전체 구조를 개선했습니다.","asIs":"콘텐츠가 계속 추가되면서 정보의 우선순위가 흐려졌고, 오래된 UI와 섹션 구조 때문에 주요 가이드·교육·프로모션을 빠르게 찾기 어려웠습니다.","toBe":"판매자의 주요 사용 목적을 기준으로 정보 구조를 다시 정리하고, 레이아웃·타이포그래피·탐색 요소를 하나의 UI 원칙으로 통일했습니다.","process":[{"title":"콘텐츠 구조 분석","text":"기존 메인 콘텐츠와 사용 흐름을 점검해 중요도와 노출 우선순위를 재정의"},{"title":"정보 구조 재설계","text":"판매자의 주요 사용 목적을 기준으로 섹션 순서와 정보 위계를 재구성"},{"title":"UI 시스템 정리","text":"레이아웃·타이포그래피·탐색 요소를 공통 규칙으로 정리하고 실제 화면에 적용"}],"thumb":"","detailImage":"images/image-03-0672cc800ba6.png","group":"experience","core":"UI/UX / Visual Design","number":3,"toBeHighlights":["정보 구조를 다시 정리"],"descHighlights":[],"toBeColorHighlights":["하나의 UI 원칙으로 통일"],"detailImages":["images/image-03-0672cc800ba6.png"],"imageSizes":[100],"contextBoldHighlights":["중요한 정보와 다음 행동이 먼저 보이도록"],"contextColorHighlights":["전체 구조를 개선"]},{"title":"SELLOG 브랜딩","category":"design system","categoryLabel":"브랜딩 · 콘텐츠 시스템","desc":"뉴스레터를 SELLOG 브랜드로 재정의하고, 매회 일관되게 제작할 수 있는 콘텐츠 시스템을 만들었습니다.","tags":["BRANDING","CONTENT"],"context":"정보 전달 중심으로 운영되던 판매자 뉴스레터를 ‘SELLOG’라는 콘텐츠 브랜드로 재정의하고, 반복 발행에도 일관성을 유지할 수 있는 Visual Identity와 콘텐츠 포맷을 구축했습니다.","asIs":"뉴스레터가 건별 정보 전달 중심으로 제작되어 콘텐츠 간 시각적 연결성이 약했고, 채널을 대표하는 고유한 브랜드 인상이 부족했습니다.","toBe":"SELLOG의 로고·컬러·타이포그래피와 카드뉴스 기반 Visual Identity를 정의하고, 반복 활용 가능한 공통 콘텐츠 포맷과 템플릿을 설계했습니다.","process":[{"title":"브랜드 방향 정의","text":"셀러에게 필요한 판매 정보와 노하우를 전달하는 채널로 브랜드 역할과 메시지를 정리"},{"title":"콘텐츠 포맷 설계","text":"반복 제작이 가능한 카드뉴스 구조와 시각 규칙을 설계"},{"title":"운영 체계화","text":"브랜드 컬러·로고·컴포넌트를 정리해 제작 과정에서 일관되게 재사용할 수 있도록 구성"}],"thumb":"","detailImage":"images/image-04-2a52ab8f8f23.png","group":"experience","core":"Branding / Content System","number":4,"toBeHighlights":["공통 콘텐츠 포맷과 템플릿"],"descHighlights":[],"detailImages":["images/image-04-2a52ab8f8f23.png"],"imageSizes":[100],"contextBoldHighlights":["SELLOG","콘텐츠 브랜드"],"contextColorHighlights":["반복 발행에도 일관성"],"toBeColorHighlights":["Visual Identity"]},{"title":"뉴스레터 변환기","category":"automation tools","categoryLabel":"내부 도구 · 웹 변환기","desc":"이미지·링크·HTML 변환 과정을 자동화해 뉴스레터 재게시 시간을 약 80% 줄였습니다.","tags":["TOOL","WEB","AUTOMATION"],"context":"뉴스레터를 파트너센터에 다시 게시할 때 반복되던 이미지·링크·HTML 변환 작업을 줄이기 위해, 원본만 입력하면 게시 가능한 결과물로 변환하는 웹 기반 Internal Tool을 직접 제작·배포했습니다.","asIs":"재게시할 때마다 이미지 가공, 링크 연결, HTML 변환을 수작업으로 반복해야 했고 한 건당 약 5분이 소요되어 단순 작업 비중과 휴먼에러 가능성이 높았습니다.","toBe":"원본 콘텐츠를 불러오면 이미지·링크·HTML 규칙을 자동 적용하고, 실제 게시 환경에 바로 사용할 수 있는 결과물을 생성하는 Web Converter를 구축했습니다.","process":[{"title":"반복 작업 분석","text":"뉴스레터 재게시 과정에서 반복되는 이미지 처리·링크 설정·HTML 변환 단계를 분리"},{"title":"변환 로직 구현","text":"원본 콘텐츠를 불러오면 필요한 형식으로 자동 변환되도록 웹 도구를 구현"},{"title":"게시 과정 단순화","text":"변환된 결과물을 바로 복사·게시할 수 있게 만들어 수작업 단계를 축소"}],"thumb":"","detailImage":"images/image-05-fbeba4d2431b.png","group":"automation","core":"Automation / Tool Building / Web","number":5,"toBeHighlights":["자동 적용"],"descHighlights":[],"detailImages":["images/image-05-fbeba4d2431b.png"],"imageSizes":[100],"contextBoldHighlights":["원본만 입력하면","게시 가능한 결과물"],"contextColorHighlights":["반복되던 이미지·링크·HTML 변환 작업"],"toBeColorHighlights":["바로 사용할 수 있는 결과물"]},{"title":"스팟성 프로모션 팝업 배너 제작","category":"design","categoryLabel":"경험 개선 · UX · 성과 검증","desc":"판매자 참여를 높이기 위해 모집 팝업을 직접 구현하고, 노출 전후의 클릭 성과까지 검증했습니다.","tags":["UI QA","QUALITY"],"context":"한가위 빅세일 모집 정보를 판매자가 놓치지 않도록, 파트너센터 진입 시 핵심 일정과 참여 CTA를 바로 확인할 수 있는 팝업을 기획·디자인하고 구현했습니다.","asIs":"행사 모집 정보가 기존 콘텐츠 흐름 안에 있어 중요한 신청 일정을 놓칠 수 있었고, 노출 방식을 바꾼 뒤 실제 반응이 달라졌는지도 확인하기 어려웠습니다.","toBe":"모집 일정과 참여 CTA를 진입 화면에서 바로 인지하도록 노출 방식을 개선하고, 동일 기간의 클릭 데이터를 비교해 개선 효과를 확인했습니다.","process":[{"title":"노출 방식 설계","text":"모집 일정과 참여 CTA가 첫 화면에서 바로 인지되도록 팝업의 정보 구조와 메시지를 설계"},{"title":"팝업 구현","text":"실제 서비스 환경에 적용할 수 있도록 반응형 HTML·CSS로 직접 구현"},{"title":"성과 확인","text":"동일 기간의 전후 데이터를 비교해 클릭 수와 클릭률 변화를 확인"}],"thumb":"","detailImage":"images/image-06-62b0cf4d09b9.png","group":"experience","core":"UI QA / Design Quality","number":6,"toBeHighlights":["진입 화면에서 바로 인지"],"descHighlights":[],"detailImages":["images/image-06-62b0cf4d09b9.png"],"imageSizes":[100],"contextBoldHighlights":["핵심 일정과 참여 CTA"],"contextColorHighlights":["바로 확인할 수 있는 팝업"],"toBeColorHighlights":["동일 기간의 클릭 데이터를 비교"]},{"title":"문의 메일 자동화","category":"automation workflow","categoryLabel":"자동화 · 메일 처리","desc":"문의 메일의 접수·분류·관리 과정을 자동화해 반복되는 메일 처리 업무를 줄였습니다.","tags":["WORKFLOW","MAIL"],"context":"프로모션 운영 중 반복적으로 유입되는 문의 메일을 사람이 매번 확인·구분하던 과정을 줄이기 위해, 문의 유형을 코드화하고 접수부터 분류·관리까지 이어지는 Workflow를 자동화했습니다.","asIs":"문의가 메일로 반복 유입되지만 유형과 상태가 별도로 구조화되지 않아 담당자가 내용을 직접 확인하고 분류·정리해야 했습니다.","toBe":"문의 유형과 조건을 코드 기반으로 정의하고, 메일 접수 → 유형 분류 → 관리 단계가 자동으로 이어지도록 Workflow를 설계했습니다.","process":[{"title":"처리 흐름 정리","text":"문의 메일이 접수된 뒤 분류·담당자 확인·관리로 이어지는 반복 업무를 단계별로 정리"},{"title":"자동화 연결","text":"메일 조건에 따라 필요한 정보가 자동 분류·전달되도록 워크플로를 구성"},{"title":"운영 기준 정리","text":"예외 상황과 관리 기준을 함께 정리해 실제 업무에서 안정적으로 사용할 수 있도록 개선"}],"thumb":"","detailImage":"images/image-07-9058639ff833.png","group":"automation","core":"Workflow Design / Automation","number":7,"toBeHighlights":["메일 접수 → 유형 분류 → 관리"],"descHighlights":[],"detailImages":["images/image-07-9058639ff833.png"],"imageSizes":[100],"contextBoldHighlights":["접수부터 분류·관리"],"contextColorHighlights":["자동화"],"toBeColorHighlights":["자동으로 이어지도록"]},{"title":"첨부파일 자동저장","category":"automation workflow","categoryLabel":"자동화 · 파일 관리","desc":"이메일 첨부파일을 조건에 따라 자동 수집·저장해 반복적인 파일 관리 업무를 줄였습니다.","tags":["AUTOMATION","FILE"],"context":"교육 신청과 운영 과정에서 이메일 첨부파일을 담당자가 개별 다운로드·저장하던 업무를 없애기 위해, 조건에 맞는 파일을 자동으로 수집·저장하는 Workflow를 구축했습니다.","asIs":"대상 메일을 직접 열어 첨부파일을 확인하고 정해진 위치에 저장해야 해 반복 작업이 많았고, 파일 누락이나 저장 위치 오류 가능성이 있었습니다.","toBe":"수신 메일의 발신·제목·첨부 조건을 기준으로 대상 파일을 식별하고, 지정된 저장 위치에 자동으로 수집·축적되도록 Workflow를 구성했습니다.","process":[{"title":"저장 조건 정의","text":"대상 메일과 첨부파일을 구분할 수 있도록 수집 조건과 파일 기준을 정의"},{"title":"자동 저장 구현","text":"조건에 맞는 첨부파일이 지정 위치에 자동 저장되도록 흐름을 연결"},{"title":"파일 관리 정리","text":"중복·누락을 줄일 수 있도록 파일명과 저장 위치 규칙을 정리"}],"thumb":"","detailImage":"images/image-08-a2097f0dfe8b.png","group":"automation","core":"Process Automation","number":8,"toBeHighlights":["지정된 저장 위치"],"descHighlights":[],"detailImages":["images/image-08-a2097f0dfe8b.png"],"imageSizes":[100],"contextBoldHighlights":["조건에 맞는 파일","자동으로 수집·저장"],"contextColorHighlights":["개별 다운로드·저장하던 업무를 없애기"],"toBeColorHighlights":["자동으로 수집·축적"]},{"title":"교육 리플렛","category":"design","categoryLabel":"경험 개선 · 편집 디자인","desc":"교육 현장에서 필요한 정보를 빠르게 찾을 수 있도록 리플렛의 정보 구조와 편집 체계를 설계했습니다.","tags":["EDITORIAL","VISUAL"],"context":"교육 현장에서 사용되는 리플렛 안에 일정·프로그램·안내 정보를 효과적으로 담기 위해, 사용자가 필요한 내용을 빠르게 찾을 수 있도록 정보 구조와 편집 디자인을 설계했습니다.","asIs":"제한된 인쇄물 안에 다양한 교육 정보를 담아야 해 모든 내용을 동일한 비중으로 배치할 경우 핵심 일정과 프로그램 정보를 빠르게 파악하기 어려웠습니다.","toBe":"현장에서 정보를 확인하는 순서와 중요도를 기준으로 Information Hierarchy를 정리하고, 섹션·타이포·레이아웃을 통해 빠르게 스캔할 수 있는 Visual Layout을 설계했습니다.","process":[{"title":"Information Audit","text":"리플렛에 필요한 일정·프로그램·안내 정보 정리"},{"title":"Hierarchy","text":"사용 순서와 중요도를 기준으로 정보 우선순위 설계"},{"title":"Editorial Design","text":"한정된 지면에서 빠르게 읽히는 편집·시각 구조 제작"}],"thumb":"","detailImage":"images/image-09-220e56280180.png","group":"experience","core":"Editorial / Visual Design","number":9,"toBeHighlights":["Information Hierarchy"],"descHighlights":[],"detailImages":["images/image-09-220e56280180.png"],"imageSizes":[100],"contextBoldHighlights":["필요한 내용을 빠르게 찾을 수 있도록"],"contextColorHighlights":["정보 구조와 편집 디자인"],"toBeColorHighlights":["빠르게 스캔할 수 있는"]},{"title":"카카오 CRM 콘텐츠 운영","category":"design workflow","categoryLabel":"경험 개선 · 콘텐츠 UX","desc":"카카오 CRM 메시지를 기획부터 카피·비주얼·발송까지 일관된 기준으로 운영했습니다.","tags":["CONTENT UX","CRM"],"context":"판매자 대상 카카오 메시지의 목적 설정부터 콘텐츠 구조, 카피·Visual 제작, 발송과 운영까지 전체 과정을 하나의 Communication Experience로 설계·운영했습니다.","asIs":"메시지 기획·카피·Visual·발송이 각각 개별 제작 과정으로 존재해, 메시지 목적과 표현 방식 사이의 일관성을 지속적으로 유지하기 어려웠습니다.","toBe":"발송 목적과 대상에 맞춰 정보 구조를 먼저 정의하고, 카피와 Visual을 동일한 방향으로 설계한 뒤 실제 발송·운영까지 End-to-End로 연결했습니다.","process":[{"title":"Message Strategy","text":"발송 목적·대상·핵심 행동을 기준으로 메시지 구조 정의"},{"title":"Visual & Copy","text":"채널 특성에 맞춰 카피와 비주얼을 하나의 경험으로 설계"},{"title":"Delivery","text":"발송 세팅과 운영까지 연결해 실제 사용자 접점에서 검증"}],"thumb":"","detailImage":"images/image-10-0905467181a5.png","group":"experience","core":"Content UX / Communication Design","number":10,"toBeHighlights":["정보 구조를 먼저 정의"],"descHighlights":[],"detailImages":["images/image-10-0905467181a5.png"],"imageSizes":[100],"contextBoldHighlights":[],"contextColorHighlights":["Communication Experience"],"toBeColorHighlights":["End-to-End"]},{"title":"캠페인 인포그래픽 시스템","category":"system design","categoryLabel":"시스템 · 데이터 시각화","desc":"반복되는 캠페인 성과 정보를 재사용 가능한 인포그래픽 템플릿으로 표준화했습니다.","tags":["DATA VISUAL","TEMPLATE"],"context":"캠페인마다 반복 제작되는 성과와 핵심 정보를 더 빠르고 일관되게 표현하기 위해, 데이터 표현 규칙과 Visual Rule을 정의하고 재사용 가능한 Infographic Template을 구축했습니다.","asIs":"유사한 성과 정보임에도 캠페인마다 새롭게 레이아웃을 구성해 반복 제작 시간이 발생했고, 결과물 간 시각적 일관성을 유지하기 어려웠습니다.","toBe":"반복되는 지표와 메시지 유형을 정리해 정보 구조를 표준화하고, 데이터만 교체해 사용할 수 있도록 레이아웃·그래픽·타이포 규칙을 Template화했습니다.","process":[{"title":"Pattern Analysis","text":"캠페인별 반복 지표와 정보 표현 패턴 분석"},{"title":"Visual Rule","text":"데이터 위계·그래픽·타이포 표현 규칙 정의"},{"title":"Template System","text":"내용만 교체해 재사용 가능한 Infographic Template 구축"}],"thumb":"","detailImage":"images/image-11-c37f95fb6f8f.png","group":"system","core":"Data Visualization / Template System","number":12,"toBeHighlights":["정보 구조를 표준화"],"descHighlights":[],"detailImages":["images/image-11-c37f95fb6f8f.png"],"imageSizes":[100],"contextBoldHighlights":["재사용 가능한 Infographic Template"],"contextColorHighlights":["더 빠르고 일관되게 표현"],"toBeColorHighlights":["데이터만 교체해 사용할 수 있도록"]},{"title":"웹 팝업 컴포넌트","category":"system tools","categoryLabel":"시스템 · 웹 컴포넌트","desc":"목적마다 새로 만들던 웹 팝업을 콘텐츠만 교체해 재사용할 수 있는 컴포넌트로 전환했습니다.","tags":["COMPONENT","HTML/CSS"],"context":"라이브 교육·설문 등 목적이 달라질 때마다 새로 제작하던 웹 팝업을 공통 UI Component로 전환하고, 콘텐츠만 교체해 반복 운영할 수 있는 템플릿 구조를 만들었습니다.","asIs":"팝업 목적이 바뀔 때마다 디자인과 HTML을 건별로 다시 제작해 동일한 구조가 반복되었고, 운영 시 UI 일관성과 제작 효율을 동시에 관리하기 어려웠습니다.","toBe":"공통 레이아웃과 UI 규칙을 Component화하고, 제목·이미지·CTA 등 콘텐츠 영역만 교체하면 바로 사용할 수 있는 Web Popup Template을 직접 구현했습니다.","process":[{"title":"Common Pattern","text":"목적별 팝업에서 반복되는 UI 구조와 요소 추출"},{"title":"Component Design","text":"공통 레이아웃·타이포·CTA 규칙을 Component로 정의"},{"title":"HTML Template","text":"콘텐츠 교체만으로 운영 가능한 HTML/CSS 템플릿 구현"}],"thumb":"","detailImage":"images/image-12-0265d9aebbfe.png","group":"system","core":"UI Component / HTML·CSS / Systemization","number":13,"toBeHighlights":["공통 레이아웃과 UI 규칙"],"descHighlights":[],"detailImages":["images/image-12-0265d9aebbfe.png"],"imageSizes":[100],"toBeColorHighlights":["바로 사용할 수 있는"],"contextBoldHighlights":["공통 UI Component"],"contextColorHighlights":["콘텐츠만 교체해 반복 운영"]},{"title":"소재 요청 워크플로 통합","category":"system workflow","categoryLabel":"시스템 · 운영 프로세스","desc":"여러 채널에 흩어져 있던 소재 요청을 요청부터 완료까지 하나의 흐름으로 통합했습니다.","tags":["WORKFLOW","OPS"],"context":"채널별로 분산되어 있던 소재 요청과 진행 관리 방식을 하나로 통합하고, 요청부터 제작·검수·완료까지 동일한 상태 체계로 관리할 수 있는 운영 Workflow를 구축했습니다.","asIs":"요청 채널과 관리 방식이 제각각이라 어떤 요청이 진행 중인지, 검수가 필요한지, 완료됐는지 한 화면에서 파악하기 어려웠습니다.","toBe":"요청 항목과 입력 구조를 하나로 정리하고, 요청 → 제작 → 검수 → 완료의 공통 상태를 정의해 Single Workflow로 연결했습니다.","process":[{"title":"Request Audit","text":"채널별 요청 항목과 관리 방식의 차이 분석"},{"title":"Unified Structure","text":"공통 입력 항목과 요청 기준을 하나의 구조로 통합"},{"title":"Status Workflow","text":"요청→제작→검수→완료 상태를 연결해 진행 가시성 확보"}],"thumb":"","detailImage":"images/image-13-39c6e2503817.png","group":"system","core":"Workflow / Operations System","number":14,"toBeHighlights":["요청 → 제작 → 검수 → 완료"],"descHighlights":[],"detailImages":["images/image-13-39c6e2503817.png"],"imageSizes":[100],"contextBoldHighlights":["요청부터 제작·검수·완료까지"],"contextColorHighlights":["하나로 통합"],"toBeColorHighlights":["Single Workflow"]},{"title":"파트너센터 UI 시스템","category":"system design tools","categoryLabel":"시스템 · UI 시스템 · CMS","desc":"반복되는 UI를 컴포넌트로 정리하고 운영 패널과 연결해, 화면과 관리 방식을 함께 개선했습니다.","tags":["DESIGN SYSTEM","CMS","UX ENGINEERING"],"context":"온라인교육·가이드·판매캘린더 등 여러 판매자 서비스 영역을 일관된 UI 구조로 개편하고, 사용자 화면뿐 아니라 운영자가 콘텐츠를 쉽게 수정할 수 있는 관리 경험까지 함께 설계했습니다.","asIs":"서비스별 UI 구조와 운영 방식이 개별적으로 존재해 화면 간 일관성이 부족했고, 콘텐츠 변경 시 반복적인 디자인·코드 수정이 필요한 영역이 있었습니다.","toBe":"반복 UI를 Component화하고 디자인 규칙을 통일하는 동시에, 콘텐츠를 코드에서 분리해 운영용 작업 패널과 관리 구조를 함께 개선했습니다.","process":[{"title":"System Audit","text":"서비스별 반복 UI와 운영상 수정 지점을 함께 분석"},{"title":"Component System","text":"공통 패턴을 컴포넌트화하고 타이포·간격·상태 규칙 통일"},{"title":"CMS Experience","text":"운영 패널과 콘텐츠 관리 구조를 연결해 코드 수정 의존도 축소"}],"thumb":"","detailImage":"images/image-14-122833657a0c.png","group":"system","core":"Design System / Component / UX Engineering","number":15,"toBeHighlights":["콘텐츠를 코드에서 분리"],"descHighlights":[],"detailImages":["images/image-14-122833657a0c.png","images/image-15-9d1367b7f51c.png","images/image-16-c454a81a809c.png"],"imageSizes":[100,100,100],"contextBoldHighlights":["운영자가 콘텐츠를 쉽게 수정"],"contextColorHighlights":["관리 경험까지 함께 설계"],"toBeColorHighlights":["운영용 작업 패널"]},{"title":"퍼블리싱 파이프라인 자동화","category":"automation tools","categoryLabel":"자동화 · 퍼블리싱","desc":"이미지 처리·HTML 변환·링크 설정을 하나의 흐름으로 묶어 게시 제작 시간을 70~80% 줄였습니다.","tags":["PUBLISHING","AUTOMATION"],"context":"트렌드 리포트·성공스토리 등 반복적으로 게시되는 콘텐츠의 이미지 가공·HTML·링크 작업을 표준화하고 자동화해, 원본에서 게시 결과물까지 이어지는 Publishing Pipeline을 구축했습니다.","asIs":"콘텐츠 게시마다 이미지 변환·가공, HTML 작성, 링크 연결을 반복 수행해야 해 한 건당 약 7~10분이 소요되고 단계별 실수 가능성이 있었습니다.","toBe":"콘텐츠 유형별 변환 규칙을 표준화하고, 이미지 처리부터 HTML 변환·링크 연결까지 하나의 Pipeline에서 처리되도록 제작 흐름을 자동화했습니다.","process":[{"title":"Process Mapping","text":"게시 과정의 이미지·HTML·링크 작업을 단계별로 분해"},{"title":"Standardization","text":"콘텐츠 유형별 변환 규칙과 결과물 형식을 표준화"},{"title":"Pipeline Build","text":"원본 입력부터 게시 결과물 생성까지 자동 처리 흐름 구현"}],"thumb":"","detailImage":"images/image-17-ab0bcce63e73.png","group":"automation","core":"Publishing System / Automation / Tool Building","number":16,"toBeHighlights":["이미지 처리부터 HTML 변환·링크 연결까지"],"descHighlights":[],"detailImages":["images/image-17-ab0bcce63e73.png"],"imageSizes":[100],"contextBoldHighlights":["이미지 가공·HTML·링크 작업","Publishing Pipeline"],"contextColorHighlights":["표준화하고 자동화"],"toBeColorHighlights":["하나의 Pipeline"]},{"title":"Guide Studio","category":"system tools","categoryLabel":"내부 도구 · 가이드 제작","desc":"재사용 블록을 조합해 가이드를 만들고, 미리보기와 HTML 생성까지 이어지는 제작 도구를 구축했습니다.","tags":["TOOL","HTML/CSS/JS","NO-CODE"],"context":"가이드 제작 시 HTML을 직접 구성·수정해야 했던 부담을 줄이기 위해, 반복 UI를 재사용 가능한 블록으로 구조화하고 운영자가 직접 조합·미리보기·HTML 생성까지 할 수 있는 Authoring Tool을 구축했습니다.","asIs":"콘텐츠 유형이 달라질 때마다 이미지·텍스트·표·강조·FAQ 등을 HTML로 직접 작성해야 해 제작 속도가 느리고, 수정과 유지관리에도 코드 지식이 필요했습니다.","toBe":"반복되는 가이드 UI를 Reusable Block으로 정의하고, 블록 추가·순서 변경·Preview·HTML 생성이 가능한 No-code/Low-code 방식의 제작 인터페이스를 구현했습니다.","process":[{"title":"Block System","text":"이미지·텍스트·표·강조·FAQ 등 반복 요소를 재사용 블록으로 구조화"},{"title":"Authoring UX","text":"블록 조합과 순서 변경이 쉬운 콘텐츠 제작 인터페이스 설계"},{"title":"Preview & Export","text":"실시간 미리보기와 게시용 HTML 생성 기능 구현"}],"thumb":"","detailImage":"images/image-18-7a2aab642f66.png","group":"system","core":"Design System / Tool Building / HTML·CSS·JS","number":17,"toBeHighlights":["No-code/Low-code"],"descHighlights":[],"detailImages":["images/image-18-7a2aab642f66.png"],"imageSizes":[100],"contextBoldHighlights":["재사용 가능한 블록","직접 조합·미리보기·HTML 생성"],"contextColorHighlights":["HTML을 직접 구성·수정해야 했던 부담을 줄이기"],"toBeColorHighlights":["Preview·HTML 생성"]},{"title":"CopyMate","category":"automation tools","categoryLabel":"내부 도구 · AI · 카피","desc":"카피 조건과 AI를 연결해 여러 문구안을 빠르게 생성하고 비교할 수 있는 내부 도구를 만들었습니다.","tags":["AI","INTERNAL TOOL","UX"],"context":"채널마다 반복되는 카피 작성 업무를 글자 수·톤·이모지 등 명확한 조건으로 구조화하고 AI를 결합해, 여러 결과안을 빠르게 생성·비교할 수 있는 Internal Tool을 기획·구축했습니다.","asIs":"새로운 소재마다 카피를 처음부터 반복 작성하고, 채널별 글자 수·톤·이모지 조건을 사람이 개별적으로 맞춰야 해 수정과 비교에 시간이 반복적으로 소요됐습니다.","toBe":"카피 작성에 필요한 조건을 UI 입력값으로 구조화하고, 해당 조건을 AI 생성 Workflow와 연결해 여러 카피안을 한 번에 생성하고 비교할 수 있도록 설계했습니다.","process":[{"title":"Constraint Design","text":"글자 수·톤·이모지 등 반복되는 카피 조건을 입력값으로 구조화"},{"title":"AI Workflow","text":"조건을 프롬프트와 연결해 결과 생성 과정을 자동화"},{"title":"Comparison UX","text":"여러 결과안을 빠르게 비교·선택할 수 있는 인터페이스 설계"}],"thumb":"","detailImage":"images/image-19-10983ca38b07.png","group":"automation","core":"AI / Internal Tool / UX","number":18,"toBeHighlights":["UI 입력값으로 구조화"],"descHighlights":[],"detailImages":["images/image-19-10983ca38b07.png"],"imageSizes":[100],"contextBoldHighlights":["글자 수·톤·이모지","AI"],"contextColorHighlights":["여러 결과안을 빠르게 생성·비교"],"toBeColorHighlights":["AI 생성 Workflow"]},{"title":"채널 분석 대시보드","category":"system tools","categoryLabel":"내부 제품 · 데이터 UX","desc":"여러 채널의 KPI와 콘텐츠 성과를 한 화면에서 비교할 수 있도록 데이터 대시보드의 정보 구조를 설계했습니다.","tags":["DATA UX","PRODUCT"],"context":"여러 Seller Communication 채널의 KPI·콘텐츠 성과·추이를 한곳에서 비교하고 파악할 수 있도록 데이터 구조와 Dashboard UX를 설계한 Internal Product입니다.","asIs":"채널별 KPI와 콘텐츠 성과가 서로 다른 화면과 파일에 분산되어 있어 전체 성과를 같은 기준으로 비교하거나 변화 추이를 빠르게 파악하기 어려웠습니다.","toBe":"채널별 데이터를 공통 지표 구조로 연결하고, KPI·기간 추이·콘텐츠 성과를 중심으로 한 Dashboard Information Architecture와 분석 UX를 설계했습니다.","process":[{"title":"Metric Structure","text":"채널마다 다른 KPI와 콘텐츠 지표를 공통 관점으로 정리"},{"title":"Dashboard IA","text":"Overview→추이→콘텐츠 성과로 이어지는 분석 흐름 설계"},{"title":"Prototype","text":"실제 업무에서 비교·탐색하기 쉬운 Dashboard UX 프로토타입 제작"}],"thumb":"","detailImage":"images/image-20-999ae2278ca9.png","group":"system","core":"Data UX / Product Design / Prototype","number":19,"toBeHighlights":["공통 지표 구조"],"descHighlights":[],"detailImages":["images/image-20-999ae2278ca9.png"],"imageSizes":[100],"contextBoldHighlights":["KPI·콘텐츠 성과·추이"],"contextColorHighlights":["한곳에서 비교하고 파악"],"toBeColorHighlights":["Dashboard Information Architecture"]},{"title":"콘텐츠 아카이브 자동화","category":"automation system","categoryLabel":"자동화 · 아카이브","desc":"게시물을 자동 수집·분류해 최신 콘텐츠가 계속 축적되는 아카이브 구조를 만들었습니다.","tags":["ARCHIVE","AUTOMATION","IA"],"context":"여러 카테고리의 게시물을 사람이 직접 확인하고 기록하던 아카이빙 업무를 줄이기 위해, 콘텐츠를 주기적으로 자동 수집·분류·축적하는 Archive System을 구축했습니다.","asIs":"최신 게시물을 유지하려면 여러 카테고리를 사람이 주기적으로 확인하고 직접 기록해야 해 지속적인 반복 업무가 발생하고 누락 가능성도 있었습니다.","toBe":"수집 대상과 주기를 정의하고, 게시물을 자동 수집한 뒤 카테고리 기준으로 분류·축적되도록 Archive Workflow와 저장 구조를 설계했습니다.","process":[{"title":"Collection Rule","text":"수집 대상·주기·필요 데이터를 기준으로 자동화 조건 정의"},{"title":"Classification","text":"콘텐츠가 카테고리 기준으로 자동 분류되도록 규칙 설계"},{"title":"Archive Structure","text":"최신 게시물이 지속 축적되고 다시 활용될 수 있는 저장 구조 구축"}],"thumb":"","detailImage":"images/image-21-7ab0414a072f.png","group":"automation","core":"Automation / Information Architecture","number":20,"toBeHighlights":["자동 수집"],"descHighlights":[],"detailImages":["images/image-21-7ab0414a072f.png"],"imageSizes":[100],"contextBoldHighlights":["자동 수집·분류·축적"],"contextColorHighlights":["아카이빙 업무를 줄이기"],"toBeColorHighlights":["Archive Workflow"]},{"number":20,"title":"뉴스레터 클릭 데이터 수집 자동화","category":"design","categoryLabel":"자동화 · 데이터 측정","desc":"외부 링크 클릭을 CTA별로 기록해 뉴스레터 콘텐츠 성과를 비교할 수 있는 측정 구조를 만들었습니다.","asIsTitle":"기존 방식","asIs":"링크가 유튜브·캘린더·교육 등 여러 외부 페이지로 연결되어 있어 어떤 CTA가 클릭됐는지 한곳에서 비교하기 어려웠습니다.","toBeTitle":"개선 방식","toBe":"각 링크에 campaign·cta·source 값을 부여하고 Apps Script와 로그 시트를 연결해, 클릭이 발생할 때 CTA별 데이터가 자동으로 기록되도록 구현했습니다.","process":[{"title":"측정 기준 정의","text":"캠페인과 CTA를 구분할 수 있도록 링크 키와 campaign·cta·source 규칙을 정의"},{"title":"클릭 로그 구현","text":"Apps Script를 이용해 클릭 정보를 로그 시트에 자동 저장하는 구조를 구현"},{"title":"성과 비교 기반 마련","text":"서로 다른 외부 링크의 반응을 CTA 단위로 비교할 수 있도록 데이터를 정리"}],"thumb":"","detailImage":"images/image-22-8ce09969f5e9.png","detailImages":["images/image-22-8ce09969f5e9.png","images/image-22-8ce09969f5e9.png"],"imageSizes":[100,100],"imageSize":100,"context":"뉴스레터 안의 여러 외부 링크가 실제로 얼마나 클릭되는지 CTA별로 구분해 보기 어려워, 콘텐츠 성과를 같은 기준으로 확인할 수 있는 별도 측정 구조를 만들었습니다.","contextBoldHighlights":["CTA별로 구분","같은 기준으로 확인"],"contextColorHighlights":["별도 측정 구조"],"toBeHighlights":["campaign·cta·source","Apps Script와 로그 시트"],"toBeColorHighlights":["자동으로 기록"]},{"number":21,"title":"GA4 KPI 리포팅 자동화","category":"design","categoryLabel":"자동화 · 데이터 리포팅","desc":"GA4 데이터를 자동 수집·비교해 반복적인 KPI 리포팅 업무를 줄였습니다.","asIsTitle":"기존 방식","asIs":"매번 GA4에서 지표를 확인한 뒤 기간별 데이터를 다시 정리해야 했고, 현재 수치와 전월·전년·KPI를 한 화면에서 비교하기 어려웠습니다.","toBeTitle":"개선 방식","toBe":"GA4 Data API와 Apps Script를 연결해 주요 지표를 자동으로 수집하고, 기간별 비교와 KPI 대비 값을 계산해 대시보드에서 바로 확인할 수 있도록 구성했습니다.","process":[{"title":"GA4 데이터 연결","text":"GA4 Data API에서 필요한 PV·UV·Sessions 지표를 자동으로 가져오도록 Apps Script를 연결"},{"title":"비교 로직 구현","text":"현재·전월 동일기간·전년 동일기간·KPI 목표 대비 값을 자동 계산하도록 로직을 구성"},{"title":"리포팅 자동화","text":"계산된 지표를 대시보드와 정기 리포트에서 바로 확인할 수 있도록 시각화"}],"thumb":"","detailImage":"images/image-23-c8388ab4c702.png","detailImages":["images/image-23-c8388ab4c702.png"],"imageSizes":[100],"imageSize":100,"context":"파트너센터의 PV·UV·Sessions와 KPI 달성 현황을 반복해서 확인하고 정리하는 업무를 줄이기 위해, GA4 데이터를 가져와 비교·리포팅까지 이어지는 자동화 구조를 만들었습니다.","contextBoldHighlights":["GA4 데이터를 가져와","비교·리포팅"],"contextColorHighlights":["반복해서 확인하고 정리하는 업무를 줄이기"],"toBeHighlights":["GA4 Data API와 Apps Script"],"toBeColorHighlights":["자동으로 수집"]},{"number":22,"title":"뉴스레터 모바일 스와이프 개선","category":"design","categoryLabel":"경험 개선 · 모바일 · 인터랙션","desc":"버튼으로만 넘기던 뉴스레터에 터치 스와이프를 추가해 모바일 탐색을 더 자연스럽게 개선했습니다.","asIsTitle":"기존 방식","asIs":"PC에서는 버튼 클릭으로 슬라이드를 이동할 수 있었지만, 모바일에서도 같은 조작을 요구해 연속해서 콘텐츠를 탐색할 때 불편함이 있었습니다.","toBeTitle":"개선 방식","toBe":"기존 좌우 버튼은 유지하면서 터치 시작·이동·종료를 감지하는 스와이프 기능을 추가해, 모바일에서는 화면을 밀어 다음 콘텐츠로 이동할 수 있도록 개선했습니다.","process":[{"title":"모바일 사용성 점검","text":"실제 모바일 환경에서 버튼 중심의 슬라이드 조작이 불편한 지점을 확인"},{"title":"스와이프 기능 구현","text":"기존 캐러셀 구조를 유지하면서 좌우 터치 제스처로 슬라이드를 이동하도록 기능을 추가"},{"title":"반응형 동작 확인","text":"PC의 버튼 조작과 모바일 스와이프가 함께 동작하도록 화면별 인터랙션을 점검"}],"thumb":"","detailImage":"images/image-24-1017ca8f482b.png","detailImages":["images/image-24-1017ca8f482b.png"],"imageSizes":[100],"imageSize":100,"context":"이미지형 뉴스레터 캐러셀을 모바일에서 직접 확인하면서, 좌우 버튼만으로 콘텐츠를 넘기는 방식이 터치 환경에서는 자연스럽지 않다는 문제를 발견했습니다.","contextBoldHighlights":["모바일에서 직접 확인","좌우 버튼만으로"],"contextColorHighlights":["자연스럽지 않다는 문제"],"toBeHighlights":["터치 시작·이동·종료"],"toBeColorHighlights":["스와이프 기능"]}];
+const filters=[['all','All Works'],['design','Design'],['system','System'],['build','Build / Tools']];
+const icons={all:'▦',design:'◇',system:'▤',build:'⌘'};
+const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+const rich=(text,boldTerms=[],colorTerms=[])=>{
+  const raw=String(text??"");
+  const boldMask=Array(raw.length).fill(false);
+  const colorMask=Array(raw.length).fill(false);
+
+  const mark=(terms,mask)=>{
+    [...new Set((terms||[]).filter(Boolean).map(String))]
+      .forEach(term=>{
+        let from=0;
+        while(term && from<=raw.length-term.length){
+          const at=raw.indexOf(term,from);
+          if(at<0) break;
+          for(let i=at;i<at+term.length;i++) mask[i]=true;
+          from=at+Math.max(1,term.length);
+        }
+      });
+  };
+
+  mark(boldTerms,boldMask);
+  mark(colorTerms,colorMask);
+
+  let html="", start=0;
+  while(start<raw.length){
+    const b=boldMask[start], c=colorMask[start];
+    let end=start+1;
+    while(end<raw.length && boldMask[end]===b && colorMask[end]===c) end++;
+
+    let seg=esc(raw.slice(start,end));
+    if(b) seg=`<strong>${seg}</strong>`;
+    if(c) seg=`<span class="text-accent">${seg}</span>`;
+    html+=seg;
+    start=end;
+  }
+  return html;
+};
+
+const processRich=(text)=>{
+  const raw=String(text??"");
+  const terms=["GA4 Data API","Apps Script","HTML","CTA","KPI","Pipeline","자동","표준화","통합","구현","설계","비교","분석","연결","스와이프","컴포넌트"];
+  let h=esc(raw);
+  [...terms].sort((a,b)=>b.length-a.length).forEach(term=>{
+    const safe=esc(term);
+    h=h.replaceAll(safe,`<span class="text-accent">${safe}</span>`);
+  });
+  return h;
+};
+
+function markerGroup(w){
+  const cats=String(w.category||'').split(' ');
+  if(cats.includes('automation')) return 'automation';
+  if(cats.includes('tools')) return 'tools';
+  if(cats.includes('system')) return 'system';
+  if(cats.includes('workflow')) return 'workflow';
+  if(cats.includes('design')) return 'experience';
+  return 'experience';
+}
+
+let current='all';
+function matches(w,f){if(f==='all')return true;const cats=String(w.category||'').split(' ');if(f==='build')return cats.some(c=>['automation','tools','workflow'].includes(c));return cats.includes(f)}
+function renderNav(){const nav=document.getElementById('nav');nav.innerHTML=filters.map(([k,n])=>`<button class="${k===current?'active':''}" data-filter="${k}"><span class="nav-icon">${icons[k]||'□'}</span><span>${n}</span><span class="n">${works.filter(w=>matches(w,k)).length}</span></button>`).join('');nav.querySelectorAll('button').forEach(b=>b.onclick=()=>{current=b.dataset.filter;renderNav();renderGrid();});}
+function renderGrid(){const list=works.map((w,i)=>({...w,_i:i})).filter(w=>matches(w,current));document.getElementById('count').textContent=list.length;document.getElementById('sectionTitle').textContent=filters.find(x=>x[0]===current)?.[1]||'Works';document.getElementById('grid').innerHTML=list.map(w=>{const img=w.thumb||((w.detailImages||[])[0])||w.detailImage||'';return `<article class="card ${img?'has-image':''}" data-index="${w._i}" data-cat="${esc(w.category||'')}">${img?`<div class="thumb"><img class="thumb-image" src="${img}" alt="${esc(w.title)} 썸네일" draggable="false"></div>`:''}<div class="meta"><span class="shape-marker marker-${markerGroup(w)}" aria-hidden="true"></span><span>${String(w.number||w._i+1).padStart(2,'0')} · ${esc(w.categoryLabel)}</span></div><h2>${esc(w.title)}</h2><p>${esc(w.desc)}</p><div class="chev">›</div></article>`}).join('');document.querySelectorAll('.card').forEach(c=>c.onclick=()=>openDetail(Number(c.dataset.index)));}
+function openDetail(i){
+  const w=works[i];if(!w)return;
+  const imgs=(Array.isArray(w.detailImages)&&w.detailImages.length?w.detailImages:(w.detailImage?[w.detailImage]:(w.thumb?[w.thumb]:[]))).filter(Boolean).slice(0,4);
+  const sizes=Array.isArray(w.imageSizes)?w.imageSizes.slice(0,imgs.length):[];while(sizes.length<imgs.length)sizes.push(sizes.length===0?(Number(w.imageSize)||100):100);
+  const steps=(w.process||[]).slice(0,3);
+  document.getElementById('detailContent').innerHTML=`
+  <div class="detail-inner">
+    <header class="detail-head">
+      <div>
+        <div class="kicker"><span class="shape-marker marker-${markerGroup(w)}" aria-hidden="true"></span><span>${esc(w.categoryLabel)}</span></div>
+        <h3 style="--detail-title-size:${w.title.length>=22?'24px':w.title.length>=18?'27px':w.title.length>=14?'30px':'34px'};--detail-title-size-mobile:${w.title.length>=18?'20px':w.title.length>=14?'22px':'25px'}">${esc(w.title)}</h3>
+      </div>
+      <button class="close" aria-label="닫기">×</button>
+    </header>
+
+    <div class="case">
+      <section class="section overview-analysis-section">
+        <div class="overview-analysis-grid">
+          <div class="overview-column">
+            <div class="label">01 OVERVIEW</div>
+            <p class="lead primary-copy">${rich(w.context||"",w.contextBoldHighlights,w.contextColorHighlights)}</p>
+          </div>
+          <div class="analysis-column">
+            <div class="label">ANALYSIS</div>
+            <div class="analysis-actions">
+              ${steps.map(p=>`<div class="action-line"><span class="action-mark" aria-hidden="true"></span><p>${processRich(p.text)}</p></div>`).join('')}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="label">02 OUTPUT</div>
+        <div class="output ${imgs.length?'has-gallery':'no-image'}">
+          <div><p class="copy">${rich(w.toBe||"",w.toBeHighlights,w.toBeColorHighlights)}</p></div>
+          ${imgs.length?`<div class="output-gallery" data-count="${imgs.length}">${imgs.map((src,n)=>{const size=Math.max(30,Math.min(100,Number(sizes[n])||100));return `<div class="output-gallery-item" data-zoom-src="${src}" role="button" tabindex="0" aria-label="${esc(w.title)} 결과 이미지 ${n+1} 크게 보기"><div class="output-gallery-resize-box" style="--image-scale:${size}%"><img src="${src}" alt="${esc(w.title)} 결과 이미지 ${n+1}"></div></div>`}).join('')}</div>`:''}
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="label">03 OUTCOME</div>
+        <div class="outcome"><p class="primary-copy">${rich(w.desc||"",w.descHighlights,w.descColorHighlights)}</p></div>
+      </section>
+    </div>
+  </div>`;
+  document.getElementById('detail').classList.add('open');
+  document.getElementById('scrim').classList.add('open');
+  document.getElementById('detail').setAttribute('aria-hidden','false');
+  document.body.style.overflow='hidden';
+  document.querySelector('.close').onclick=closeDetail;
+  document.querySelectorAll('.output-gallery-item[data-zoom-src]').forEach(item=>{
+    const open=()=>openImageLightbox(item.dataset.zoomSrc,item.querySelector('img')?.alt||'결과 이미지');
+    item.onclick=open;
+    item.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open();}};
+  });
+}
+function closeDetail(){document.getElementById('detail').classList.remove('open');document.getElementById('scrim').classList.remove('open');document.getElementById('detail').setAttribute('aria-hidden','true');document.body.style.overflow='';}
+
+function openImageLightbox(src,alt='결과 이미지'){
+  const box=document.getElementById('imageLightbox');
+  const img=document.getElementById('imageLightboxImage');
+  img.src=src;img.alt=alt;
+  box.classList.add('open');
+  box.setAttribute('aria-hidden','false');
+}
+function closeImageLightbox(){
+  const box=document.getElementById('imageLightbox');
+  if(!box.classList.contains('open'))return false;
+  box.classList.remove('open');
+  box.setAttribute('aria-hidden','true');
+  document.getElementById('imageLightboxImage').src='';
+  return true;
+}
+document.getElementById('imageLightboxClose').onclick=e=>{e.stopPropagation();closeImageLightbox()};
+document.getElementById('imageLightbox').onclick=e=>{
+  if(e.target.id==='imageLightbox')closeImageLightbox();
+};
+document.getElementById('scrim').onclick=closeDetail;
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    if(!closeImageLightbox())closeDetail();
+  }
+});
+renderNav();renderGrid();
+</script>
+</body></html>
